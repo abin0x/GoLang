@@ -1,10 +1,8 @@
 package main
 
 import "fmt"
-
-func main() {
-	a := 10
-	b := 20
-	fmt.Println("Sum:", a+b)
-	fmt.Println("Difference:", a-b)
+func main(){
+	// a:=10
+	var a int=100
+	fmt.Println(a)
 }
