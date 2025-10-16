@@ -2,16 +2,20 @@ package main
 
 import (
 	"fmt"
-
-	"example.com/mathlib"
 )
 
 var(
 	a=10
-	b=20
+	b=203
 )
+func printNum(num int) {
+	fmt.Println("Number is:", num)
+}
+func add(a int, b int){
+	res:=a+b
+	printNum(res)
+}
 
 func main() {
-	fmt.Println("Showing custom package")
-	mathlib.Add(a,b)
+	add(a,b)
 }
