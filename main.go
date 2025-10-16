@@ -9,13 +9,13 @@ var(
 	b=203
 )
 func printNum(num int) {
-	fmt.Println("Number is:", num)
+	fmt.Println("Number is:", num) 
 }
 func add(a int, b int){
 	res:=a+b
 	printNum(res)
 }
 
-func main() {
+func main() { 
 	add(a,b)
 }
