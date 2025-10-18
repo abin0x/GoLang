@@ -24,3 +24,19 @@ func main() {
 func init() {
 	fmt.Println("init function called")
 }
+
+/*
+ # 2 phases of memory allocation in Go
+
+ 1. Compile Time (Static Memory Allocation)
+	- Global variables
+	- Constants
+	- Function definitions
+ 2. Run Time (Dynamic Memory Allocation)
+	- Local variables
+	- Function calls
+	- Goroutines
+	- Heap allocation
+
+
+*/
