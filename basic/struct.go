@@ -20,7 +20,7 @@ func main() {
 	fmt.Println("Email: ", user1.Email)
 	fmt.Println("Age: ", user1.Age)
 
-	user2 := User{ //instance or object creation
+	user2 := User{ //instance or object creation >
 		Name:  "John",
 		Age:   25,
 		Email: "john@example.com",
