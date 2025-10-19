@@ -20,8 +20,7 @@ func main() {
 	fmt.Println("Email: ", user1.Email)
 	fmt.Println("Age: ", user1.Age)
 
-
-	user2= User {
+	user2 := User{
 		Name:  "John",
 		Age:   25,
 		Email: "john@example.com",
@@ -30,3 +29,5 @@ func main() {
 	fmt.Println("Name: ", user2.Name)
 	fmt.Println("Email: ", user2.Email)
 	fmt.Println("Age: ", user2.Age)
+
+}
