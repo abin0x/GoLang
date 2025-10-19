@@ -15,6 +15,14 @@ func displayUser(u User) {
 	fmt.Println("User Age: ", u.Age)
 }
 
+// reciever function
+func (u User) display() {
+	fmt.Println("-------------------------------User Details:----------------------")
+	fmt.Println("User Name: ", u.Name)
+	fmt.Println("User Email: ", u.Email)
+	fmt.Println("User Age: ", u.Age)
+}
+
 func main() {
 
 	user := User{
@@ -28,7 +36,9 @@ func main() {
 		Email: "bob@gmail.com",
 		Age:   32,
 	}
-	displayUser(user)
-	displayUser(user1)
+	// displayUser(user)
+	// displayUser(user1)
+	user.display()
+	user1.display()
 
 }
