@@ -9,10 +9,10 @@ type User struct {
 }
 
 func displayUser(u User) {
-	fmt.Println("User Details:")
-	fmt.Println("Name: ", u.Name)
-	fmt.Println("Email: ", u.Email)
-	fmt.Println("Age: ", u.Age)
+	fmt.Println("-------------------------------User Details:----------------------")
+	fmt.Println("User Name: ", u.Name)
+	fmt.Println("User Email: ", u.Email)
+	fmt.Println("User Age: ", u.Age)
 }
 
 func main() {
