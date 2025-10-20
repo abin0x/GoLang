@@ -11,4 +11,6 @@ func main() {
 
 	s1 := s[1:2]
 	fmt.Println(s1)
+	fmt.Println(len(s1))
+	fmt.Println(cap(s1))
 }
