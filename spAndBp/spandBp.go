@@ -14,3 +14,5 @@ func main() {
 	sum := add(a, 20)
 	fmt.Println("Sum:", sum)
 }
+
+//here the code is simple enough to set breakpoints and step through the execution to observe variable values and function calls.
