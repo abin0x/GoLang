@@ -20,3 +20,4 @@ func main() {
 //You can also step into the add function to see how the addition is performed and verify the values of x and y during the function call.
 //for example, you can set a breakpoint at the start of the main function to see when the program begins execution.
 //Then, you can step into the add function to observe how the parameters are passed and how the return value is computed.
+//Finally, you can step back into the main function to see how the returned sum is used and printed.
