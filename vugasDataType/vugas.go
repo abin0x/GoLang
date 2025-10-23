@@ -20,4 +20,14 @@ func main() {
 	fmt.Println("Is Active data value is: ", isActive)
 	fmt.Println("Name data value is: ", name)
 
+	// byte and rune data types
+	var b byte = 255 // alias for uint8
+	var r rune = '🤣' // alias for int32, represents a Unicode code point
+	fmt.Println("Byte data value is: ", b)
+	fmt.Printf("Rune data value is: %c\n", r)
+
+	// byte -> alias for uint8 -> 8 bits per character
+	// rune -> alias for int32 -> 32 bits per character
+	// Both are used to represent characters in Go
+
 }
