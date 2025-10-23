@@ -28,6 +28,14 @@ func main() {
 	var s string = "Mahmudu Hasan Abin"
 	fmt.Println("String data value is: ", s)
 
+	// Summary:
+	// int8, int16, int32, int64 -> signed integers
+	// uint8, uint16, uint32, uint64 -> unsigned integers
+	// float32, float64 -> floating point numbers
+	// complex64, complex128 -> complex numbers
+	// bool -> boolean values (true/false)
+	// string -> sequence of characters
+
 	// byte -> alias for uint8 -> 8 bits per character
 	// rune -> alias for int32 -> 32 bits per character
 	// Both are used to represent characters in Go
