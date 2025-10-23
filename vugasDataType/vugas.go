@@ -25,6 +25,8 @@ func main() {
 	var r rune = '🤣' // alias for int32, represents a Unicode code point
 	fmt.Println("Byte data value is: ", b)
 	fmt.Printf("Rune data value is: %c\n", r)
+	var s string = "Mahmudu Hasan Abin"
+	fmt.Println("String data value is: ", s)
 
 	// byte -> alias for uint8 -> 8 bits per character
 	// rune -> alias for int32 -> 32 bits per character
