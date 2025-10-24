@@ -39,3 +39,20 @@ func main() {
 	b := calc()
 	fmt.Println("Result from calc:", b)
 }
+
+/*Rules of named return values with defer:
+1. all codes executed before the return statement
+2. defer functions store in magic stack
+3. return statement executed: assign return values
+4. pop defer functions from magic stack and execute them in LIFO order
+5. function exits
+
+
+# Just return without named return values:
+1. all codes executed before the return statement
+2. defer functions store in magic stack
+3. return values are evaluated and prepared at this time
+4. all defer functions are popped from magic stack and executed in LIFO order
+5. function exits with prepared return values
+
+*/
