@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 var a = 10
@@ -22,5 +23,5 @@ func main() {
 	go PrintHello(7)
 	go PrintHello(8)
 	fmt.Println(a, " ", b)
-	// time.Sleep(5 * time.Second)
+	time.Sleep(5 * time.Second)
 }
