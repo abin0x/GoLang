@@ -24,4 +24,5 @@ func main() {
 	go PrintHello(8)
 	fmt.Println(a, " ", b)
 	time.Sleep(5 * time.Second)
+	fmt.Println("Main Function Ends")
 }
