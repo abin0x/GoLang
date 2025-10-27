@@ -23,3 +23,5 @@ func main() {
 		fmt.Println("Error starting server:", err)
 	}
 }
+
+// here we start backend
