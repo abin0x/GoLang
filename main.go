@@ -27,3 +27,5 @@ func main() {
 // here we start backend
 // go run main.go
 // then we can access the endpoints
+// http://localhost:3000/hello
+// http://localhost:3000/about
