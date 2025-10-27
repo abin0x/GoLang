@@ -25,3 +25,5 @@ func main() {
 }
 
 // here we start backend
+// go run main.go
+// then we can access the endpoints
