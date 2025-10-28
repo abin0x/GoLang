@@ -62,6 +62,7 @@ func createproductHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// handleCors sets the necessary CORS headers
 func handleCors(w http.ResponseWriter) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
