@@ -70,6 +70,7 @@ func handleCors(w http.ResponseWriter) {
 	w.Header().Set("Content-Type", "application/json")
 }
 
+// handlePreflightRequest handles OPTIONS requests for CORS preflight
 func handlePreflightRequest(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "OPTIONS" {
 		w.WriteHeader(http.StatusOK)
