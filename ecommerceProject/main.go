@@ -47,6 +47,10 @@ func createproductHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
 	if r.Method != "POST" {
 		http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
 		return
@@ -61,6 +65,7 @@ func createproductHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	newProduct.ID = len(productList) + 1
 	productList = append(productList, newProduct)
+	w.WriteHeader(201)
 	encoder := json.NewEncoder(w)
 	encoder.Encode(newProduct)
 
