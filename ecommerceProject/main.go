@@ -18,7 +18,7 @@ func aboutHandler(w http.ResponseWriter, r *http.Request) {
 
 // Product struct represents a product in the ecommerce application
 type Product struct {
-	ID          int
+	ID          int `json:"id"`
 	Title       string
 	Description string
 	Price       float64
