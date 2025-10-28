@@ -77,6 +77,7 @@ func handlePreflightRequest(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// senData sends a JSON response with the given data and status code
 func senData(w http.ResponseWriter, data interface{}, statusCode int) {
 	w.WriteHeader(statusCode)
 	encoder := json.NewEncoder(w)
