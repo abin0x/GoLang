@@ -44,6 +44,8 @@ func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 
 func createproductHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
 	if r.Method != "POST" {
 		http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
