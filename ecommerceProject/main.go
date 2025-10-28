@@ -49,6 +49,18 @@ func createproductHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
 		return
 	}
+	var newProduct Product
+	decoder := json.NewDecoder(r.Body)
+	err := decoder.Decode(&newProduct)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "Bad request", http.StatusBadRequest)
+		return
+	}
+	newProduct.ID = len(productList) + 1
+	productList = append(productList, newProduct)
+	encoder := json.NewEncoder(w)
+	encoder.Encode(newProduct)
 
 }
 
