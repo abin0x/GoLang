@@ -40,6 +40,18 @@ func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 	encoder.Encode(productList)
 }
 
+// createproductHandler handles POST requests to create a new product
+
+func createproductHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
+	if r.Method != "POST" {
+		http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
+		return
+	}
+
+}
+
 // main function sets up the HTTP server and routes
 func main() {
 
