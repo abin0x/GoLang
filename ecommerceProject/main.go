@@ -6,16 +6,6 @@ import (
 	"net/http"
 )
 
-// helloHandler handles requests to the /hello endpoint
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello world!!")
-}
-
-// aboutHandler handles requests to the /about endpoint
-func aboutHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "About us page")
-}
-
 // Product struct represents a product in the ecommerce application
 type Product struct {
 	ID          int     `json:"id"`
@@ -30,39 +20,12 @@ var productList []Product
 
 // getProductsHandler handles GET requests to the /products endpoint
 func getProductsHandler(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(200)
-		return
-	}
-
-	// handlePreflightRequest(w, r)
-	/*
-		if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
-			http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
-			return
-		}
-	*/
-
 	senData(w, productList, 200)
 }
 
 // createproductHandler handles POST requests to create a new product
 
 func createproductHandler(w http.ResponseWriter, r *http.Request) {
-	handleCors(w)
-
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(200)
-		return
-	}
-	/*
-		handlePreflightRequest(w, r)
-		if r.Method != "POST" {
-			http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
-			return
-		}
-	*/
 
 	var newProduct Product
 	decoder := json.NewDecoder(r.Body)
@@ -78,21 +41,6 @@ func createproductHandler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// handleCors sets the necessary CORS headers
-func handleCors(w http.ResponseWriter) {
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("Content-Type", "application/json")
-}
-
-// handlePreflightRequest handles OPTIONS requests for CORS preflight
-func handlePreflightRequest(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusOK)
-	}
-}
-
 // senData sends a JSON response with the given data and status code
 func senData(w http.ResponseWriter, data interface{}, statusCode int) {
 	w.WriteHeader(statusCode)
@@ -104,10 +52,9 @@ func senData(w http.ResponseWriter, data interface{}, statusCode int) {
 func main() {
 
 	mux := http.NewServeMux()
-	mux.Handle("GET /hello", http.HandlerFunc(helloHandler))
-	mux.Handle("GET /about", http.HandlerFunc(aboutHandler))
 	mux.Handle("GET /products", corsMiddleware(http.HandlerFunc(getProductsHandler)))
-	mux.Handle("POST /createproduct", http.HandlerFunc(createproductHandler))
+	mux.Handle("POST /createproduct", corsMiddleware(http.HandlerFunc(createproductHandler)))
+
 	fmt.Println("Starting server on :8080")
 	globalRouter := globalMiddleware(mux)
 	err := http.ListenAndServe(":8080", globalRouter)
