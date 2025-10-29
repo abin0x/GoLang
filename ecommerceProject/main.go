@@ -31,11 +31,17 @@ var productList []Product
 // getProductsHandler handles GET requests to the /products endpoint
 func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 	handleCors(w)
-	handlePreflightRequest(w, r)
-	if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
-		http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
+	if r.Method != "OPTIONS" {
+		w.WriteHeader(200)
 		return
 	}
+	/*
+		handlePreflightRequest(w, r)
+		if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
+			http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
+			return
+		}
+	*/
 	senData(w, productList, 200)
 }
 
@@ -43,11 +49,18 @@ func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 
 func createproductHandler(w http.ResponseWriter, r *http.Request) {
 	handleCors(w)
-	handlePreflightRequest(w, r)
-	if r.Method != "POST" {
-		http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(200)
 		return
 	}
+	/*
+		handlePreflightRequest(w, r)
+		if r.Method != "POST" {
+			http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
+			return
+		}
+	*/
 
 	var newProduct Product
 	decoder := json.NewDecoder(r.Body)
