@@ -1,54 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 )
 
-// Product struct represents a product in the ecommerce application
-type Product struct {
-	ID          int     `json:"id"`
-	Title       string  `json:"title"`
-	Description string  `json:"description"`
-	Price       float64 `json:"price"`
-	ImgUrl      string  `json:"imgUrl"`
-}
-
-// global slice to store products
-var productList []Product
-
-// getProductsHandler handles GET requests to the /products endpoint
-func getProductsHandler(w http.ResponseWriter, r *http.Request) {
-	senData(w, productList, 200)
-}
-
-// createproductHandler handles POST requests to create a new product
-
-func createproductHandler(w http.ResponseWriter, r *http.Request) {
-
-	var newProduct Product
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&newProduct)
-	if err != nil {
-		fmt.Println(err)
-		http.Error(w, "Bad request", http.StatusBadRequest)
-		return
-	}
-	newProduct.ID = len(productList) + 1
-	productList = append(productList, newProduct)
-	senData(w, newProduct, http.StatusCreated)
-
-}
-
-// senData sends a JSON response with the given data and status code
-func senData(w http.ResponseWriter, data interface{}, statusCode int) {
-	w.WriteHeader(statusCode)
-	encoder := json.NewEncoder(w)
-	encoder.Encode(data)
-}
-
-// main function sets up the HTTP server and routes
 func main() {
 
 	mux := http.NewServeMux()
@@ -108,20 +64,4 @@ func init() {
 	}
 	// productList = []Product{prd1, prd2, prd3, prd4, prd5, prd6}
 	productList = append(productList, prd1, prd2, prd3, prd4, prd5, prd6)
-}
-
-func globalMiddleware(mux *http.ServeMux) http.Handler {
-	handleAllReq := func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-		w.Header().Set("Content-Type", "application/json")
-		if r.Method == "OPTIONS" {
-			w.WriteHeader(200)
-			return
-		}
-		mux.ServeHTTP(w, r)
-
-	}
-	return http.HandlerFunc(handleAllReq)
 }
