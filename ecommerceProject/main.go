@@ -30,20 +30,19 @@ var productList []Product
 
 // getProductsHandler handles GET requests to the /products endpoint
 func getProductsHandler(w http.ResponseWriter, r *http.Request) {
-	handleCors(w)
-	/*
-		if r.Method != "OPTIONS" {
-			w.WriteHeader(200)
-			return
-		}
 
-	*/
-
-	// handlePreflightRequest(w, r)
-	if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
-		http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(200)
 		return
 	}
+
+	// handlePreflightRequest(w, r)
+	/*
+		if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
+			http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
+			return
+		}
+	*/
 
 	senData(w, productList, 200)
 }
@@ -107,7 +106,8 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("GET /hello", http.HandlerFunc(helloHandler))
 	mux.Handle("GET /about", http.HandlerFunc(aboutHandler))
-	mux.Handle("GET /products", http.HandlerFunc(getProductsHandler))
+	// mux.Handle("GET /products", http.HandlerFunc(getProductsHandler))
+	mux.Handle("GET /products", corsMiddleware(http.HandlerFunc(getProductsHandler)))
 	mux.Handle("OPTIONS /products", http.HandlerFunc(getProductsHandler))
 	mux.Handle("POST /createproduct", http.HandlerFunc(createproductHandler))
 	mux.Handle("OPTIONS /createproduct", http.HandlerFunc(createproductHandler))
@@ -163,4 +163,17 @@ func init() {
 	}
 	// productList = []Product{prd1, prd2, prd3, prd4, prd5, prd6}
 	productList = append(productList, prd1, prd2, prd3, prd4, prd5, prd6)
+}
+
+func corsMiddleware(next http.Handler) http.Handler {
+	handleCors := func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Content-Type", "application/json")
+
+		next.ServeHTTP(w, r)
+	}
+	handler := http.HandlerFunc(handleCors)
+	return handler
 }
