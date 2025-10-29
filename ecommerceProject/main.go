@@ -106,13 +106,11 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("GET /hello", http.HandlerFunc(helloHandler))
 	mux.Handle("GET /about", http.HandlerFunc(aboutHandler))
-	// mux.Handle("GET /products", http.HandlerFunc(getProductsHandler))
 	mux.Handle("GET /products", corsMiddleware(http.HandlerFunc(getProductsHandler)))
-	mux.Handle("OPTIONS /products", http.HandlerFunc(getProductsHandler))
 	mux.Handle("POST /createproduct", http.HandlerFunc(createproductHandler))
-	mux.Handle("OPTIONS /createproduct", http.HandlerFunc(createproductHandler))
 	fmt.Println("Starting server on :8080")
-	err := http.ListenAndServe(":8080", mux)
+	globalRouter := globalMiddleware(mux)
+	err := http.ListenAndServe(":8080", globalRouter)
 	if err != nil {
 		fmt.Println("Error starting server:", err)
 	}
@@ -176,4 +174,19 @@ func corsMiddleware(next http.Handler) http.Handler {
 	}
 	handler := http.HandlerFunc(handleCors)
 	return handler
+}
+
+func globalMiddleware(mux *http.ServeMux) http.Handler {
+	handleAllReq := func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "OPTIONS" {
+			w.Header().Set("Access-Control-Allow-Origin", "*")
+			w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE, PATCH")
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(200)
+		} else {
+			mux.ServeHTTP(w, r)
+		}
+	}
+	return http.HandlerFunc(handleAllReq)
 }
