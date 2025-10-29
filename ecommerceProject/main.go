@@ -48,6 +48,7 @@ func createproductHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Method not allowed, please use POST", http.StatusMethodNotAllowed)
 		return
 	}
+
 	var newProduct Product
 	decoder := json.NewDecoder(r.Body)
 	err := decoder.Decode(&newProduct)
@@ -92,6 +93,7 @@ func main() {
 	mux.Handle("GET /about", http.HandlerFunc(aboutHandler))
 	mux.Handle("GET /products", http.HandlerFunc(getProductsHandler))
 	mux.Handle("POST /createproduct", http.HandlerFunc(createproductHandler))
+	mux.Handle("OPTIONS /createproduct", http.HandlerFunc(createproductHandler))
 	fmt.Println("Starting server on :8080")
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
