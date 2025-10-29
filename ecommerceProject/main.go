@@ -88,10 +88,10 @@ func senData(w http.ResponseWriter, data interface{}, statusCode int) {
 func main() {
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/hello", helloHandler)
-	mux.HandleFunc("/about", aboutHandler)
-	mux.HandleFunc("/products", getProductsHandler)
-	mux.HandleFunc("/createproduct", createproductHandler)
+	mux.Handle("GET /hello", http.HandlerFunc(helloHandler))
+	mux.Handle("GET /about", http.HandlerFunc(aboutHandler))
+	mux.Handle("GET /products", http.HandlerFunc(getProductsHandler))
+	mux.Handle("POST /createproduct", http.HandlerFunc(createproductHandler))
 	fmt.Println("Starting server on :8080")
 	err := http.ListenAndServe(":8080", mux)
 	if err != nil {
