@@ -31,17 +31,20 @@ var productList []Product
 // getProductsHandler handles GET requests to the /products endpoint
 func getProductsHandler(w http.ResponseWriter, r *http.Request) {
 	handleCors(w)
-	if r.Method != "OPTIONS" {
-		w.WriteHeader(200)
-		return
-	}
 	/*
-		handlePreflightRequest(w, r)
-		if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
-			http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
+		if r.Method != "OPTIONS" {
+			w.WriteHeader(200)
 			return
 		}
+
 	*/
+
+	// handlePreflightRequest(w, r)
+	if r.Method != http.MethodGet { // or use r.Method != "GET"  only GET requests allowed
+		http.Error(w, "Method not allowed, please use GET", http.StatusMethodNotAllowed) //or use status code 400,syntax is  http.Error(w, "Method not allowed", 400)
+		return
+	}
+
 	senData(w, productList, 200)
 }
 
@@ -105,6 +108,7 @@ func main() {
 	mux.Handle("GET /hello", http.HandlerFunc(helloHandler))
 	mux.Handle("GET /about", http.HandlerFunc(aboutHandler))
 	mux.Handle("GET /products", http.HandlerFunc(getProductsHandler))
+	mux.Handle("OPTIONS /products", http.HandlerFunc(getProductsHandler))
 	mux.Handle("POST /createproduct", http.HandlerFunc(createproductHandler))
 	mux.Handle("OPTIONS /createproduct", http.HandlerFunc(createproductHandler))
 	fmt.Println("Starting server on :8080")
