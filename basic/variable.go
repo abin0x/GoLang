@@ -1,8 +1,9 @@
 package main
 
 import "fmt"
-func main(){
-	// a:=10
-	var a int=100
+
+func main() {
+
+	a := 20202
 	fmt.Println(a)
 }
