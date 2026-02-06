@@ -7,6 +7,7 @@ func main() {
 	// Explicit declaration
 	var name string = "Mahmudul Hasan Abin"
 	var age int = 23
+	age = 10
 
 	// Type inference
 	var city = "Dinajpur"
