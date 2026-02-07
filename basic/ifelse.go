@@ -3,8 +3,10 @@ package main
 import "fmt"
 
 func main() {
-	age := 23
-	name := "Abin"
+
+	var name string
+	var age int
+	fmt.Scanf("%s %d", &name, &age)
 
 	if age > 20 && name == "Abin" {
 		fmt.Println("You are an adult and your name is Abin")
