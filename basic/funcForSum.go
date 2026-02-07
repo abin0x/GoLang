@@ -1,15 +1,14 @@
 package main
 
 import "fmt"
-func sum(num1 int,num2 int){
-	total:=num1+num2
 
-fmt.Println(total)
+func multiply(x int, y int) {
+	result := x * y
+	fmt.Println("The multiplication of", x, "and", y, "is:", result)
 }
-
 func main() {
-	a:=10
-	b:=20
-	sum(a,b)
-	sum(100,200)
+	a := 20
+	b := 10
+
+	multiply(a, b)
 }
