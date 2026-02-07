@@ -1,15 +1,14 @@
 package main
 
 import "fmt"
+
 func main() {
-	age:=20
-	if age>18{
-		fmt.Println("You are eligible to married")
-	
-	}else if age<18{
-		fmt.Println("You are not eligible to married")
-	
-	}else{
-		fmt.Println("You are just a teenager")
+	age := 23
+	name := "Abin"
+
+	if age > 20 && name == "Abin" {
+		fmt.Println("You are an adult and your name is Abin")
+	} else if age > 20 {
+		fmt.Println("You are an adult but your name is not Abin")
 	}
 }
